@@ -10,7 +10,7 @@ GEM
       thor (~> 0.15.4)
       xcodeproj (>= 0.2.3)
     multi_json (1.5.0)
-    rake (10.0.3)
+    rake (0.9.0)
     teacup (1.0.4)
       rake
     thor (0.15.4)
