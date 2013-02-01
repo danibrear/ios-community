@@ -1,12 +1,6 @@
-class MainViewController < UITableViewController
+class MainViewController < UIViewController
 
-  CELL_ID = "CELL_ID"
-
-  def init
-    super
-    self.tabBarItem = UITabBarItem.alloc.initWithTitle("Home", image:UIImage.imageNamed("home.png"), tag:1)
-    self
-  end
+  padding = 10
 
   def viewDidLoad
 
