@@ -1,0 +1,52 @@
+self.methods.sort - Object.instance_methods
+self.setCentersHorizontally(true)
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+self.titleLabel.center = [0,0]
+continue
+close
+exit
+self.imageView.frame = [[0,0],[50,50]]
+self.imageView.frame = [[10,0],[50,50]]
+self.imageView.setFrame( [[10,0],[50,50]])
+self.imageView
+self.imageView.setHidden(true)
+self.imageView.setHidden(false)
+self.imageView.setImageEdgeInsets([0,0,50,0])
+self.setImageEdgeInsets([0,0,50,0])
+self.setImageEdgeInsets([0,self.center.x,50,0])
+self.setImageEdgeInsets([0,self.imageView.width/2,50,0])
+self.setImageEdgeInsets([0,self.imageView.frame.width/2,50,0])
+self.setImageEdgeInsets([0,self.imageView.frame.size.width/2,50,0])
+exit
+exit
+exit
+self.setTitleEdgeInsets([0,-50,0,0])
+self.setTitleEdgeInsets([0,50,0,0])
+self.setTitleEdgeInsets([0,-100,0,0])
+self.frame.size.width
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+exit

@@ -1,5 +1,5 @@
-class ApplicationHelper
+module ApplicationHelper
   def current_user
-    @current_user ||= User.find()
+    @current_user ||= User.find
   end
 end

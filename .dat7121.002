@@ -1,0 +1,6 @@
+defaults["current_user"]
+defaults.clear
+defaults.methods
+puts defaults.methods.sort - Object.instance_methods
+defaults.removeObjectForKey("current_user")
+defaults = NSUserDefaults.standardUserDefaults
