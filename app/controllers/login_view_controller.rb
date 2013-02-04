@@ -8,6 +8,11 @@ class LoginViewController < UIViewController
     self.setModalPresentationStyle(UIModalPresentationPageSheet)
     self.setModalTransitionStyle(UIModalTransitionStyleCoverVertical)
   end
+
+  def set_container(controller)
+    @container_controller = controller
+  end
+
   def viewDidLoad
     super
 
@@ -52,8 +57,8 @@ class LoginViewController < UIViewController
         if response.ok?
           user = create_user_from_response(response)
           user.save
+          @container_controller.reset_view
           cancel_pressed
-          main_controller.reload
         else
           @alert = UIAlertView.alloc.initWithTitle("Response was bad", message:"#{response.body.to_str}", delegate:nil, cancelButtonTitle: "Ok", otherButtonTitles: nil)
           @alert.show

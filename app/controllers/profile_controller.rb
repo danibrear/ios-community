@@ -29,6 +29,7 @@ class ProfileController < ApplicationController
   def logout_pressed
     user = User.find
     user.destroy
+    self.navigationController.popToRootViewControllerAnimated(true)
   end
 
   def home_pressed
