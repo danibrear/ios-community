@@ -1,12 +1,17 @@
 class MainViewController < ApplicationController
 
-  PADDING = 10
+  include BubbleWrap::KVO
+
   def viewDidLoad
     super
     self.title = "Spiceworks"
     profile_image = UIImage.imageNamed "profile_button.png"
     self.navigationItem.rightBarButtonItem = UIBarButtonItem.alloc.initWithImage(profile_image, style:UIBarButtonItemStyleBordered, target:self, action: 'profile_push')
     init_squares
+
+    observe(current_user, 'id') do |old_v, new_v|
+      viewDidLoad
+    end
   end
 
   def squares

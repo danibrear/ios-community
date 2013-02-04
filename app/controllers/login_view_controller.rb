@@ -1,5 +1,8 @@
 class LoginViewController < UIViewController
   PADDING = 10
+  def login_path
+    @login_path ||= "http://community.davidbr-mbp.spiceworks.com/api/login.json"
+  end
   def loadView
     super
     self.setModalPresentationStyle(UIModalPresentationPageSheet)
@@ -42,14 +45,39 @@ class LoginViewController < UIViewController
     @submit_button.sizeToFit
 
     @submit_button.when(UIControlEventTouchUpInside) do
-      user = User.new(name:"David Brear", email:"davidbrear04@gmail.com", id:123)
-      user.save
+      @password = @password_field.text
+      @email = @email_field.text
+      BubbleWrap::HTTP.post(login_path, payload:{login:{email:@email, password:@password}}) do |response|
+
+        if response.ok?
+          user = create_user_from_response(response)
+          user.save
+          cancel_pressed
+          main_controller.reload
+        else
+          @alert = UIAlertView.alloc.initWithTitle("Response was bad", message:"#{response.body.to_str}", delegate:nil, cancelButtonTitle: "Ok", otherButtonTitles: nil)
+          @alert.show
+        end
+      end
     end
     @submit_button.origin = [
     @password_field.origin.x + @password_field.frame.size.width - @submit_button.frame.size.width,
     @password_field.origin.y + @password_field.frame.size.height + PADDING]
     self.view.addSubview(@submit_button)
 
+  end
+
+  def parse_cookie(cookie_str)
+    parts = cookie_str.match(/=(.+);/)[1] rescue ""
+  end
+
+  def create_user_from_response(response)
+    response_json = BubbleWrap::JSON.parse(response.body.to_str)
+    cookie = parse_cookie(response.headers["Set-Cookie"])
+    user = User.new(name:   response_json["name"],
+                    email:  response_json["email"],
+                    id:     response_json["id"],
+                    session:cookie)
   end
 
   def textFieldShouldReturn(textField)

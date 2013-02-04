@@ -4,7 +4,7 @@ class User
     "current_user"
   end
 
-  PROPERTIES = [:id, :name, :email]
+  PROPERTIES = [:id, :name, :email, :session]
 
   PROPERTIES.each do |prop|
     attr_accessor prop
@@ -21,6 +21,11 @@ class User
   def save
     defaults = NSUserDefaults.standardUserDefaults
     defaults[User.user_key] = NSKeyedArchiver.archivedDataWithRootObject(self)
+  end
+
+  def destroy
+    defaults = NSUserDefaults.standardUserDefaults
+    defaults[User.user_key] = nil
   end
 
   def self.find

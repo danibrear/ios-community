@@ -1,6 +1,8 @@
 class ApplicationController < UIViewController
   include ApplicationHelper
 
+  PADDING = 10
+
   def loadView
     super
     self.setModalPresentationStyle(UIModalPresentationPageSheet)
