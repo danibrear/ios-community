@@ -1,0 +1,11 @@
+<?xml version='1.0'?>
+<signatures version='1.0'>
+<class name='NSString'>
+<method selector='kv_decodeHTMLCharacterEntities'>
+<retval declared_type='NSString*' type='@'/>
+</method>
+<method selector='kv_encodeHTMLCharacterEntities'>
+<retval declared_type='NSString*' type='@'/>
+</method>
+</class>
+</signatures>

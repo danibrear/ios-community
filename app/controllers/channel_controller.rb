@@ -5,6 +5,14 @@ class ChannelController < ApplicationController
   LOADING_TAG = 10
   TAB_BAR_TAG = 11
 
+  #Tab Bar Tags
+
+  FOLLOWERS_TAG = 20
+  GROUPS_TAG =    21
+  TOPICS_TAG =    22
+  HOW_TOS_TAG =   23
+
+
   def needs_update?
     !@updated
   end
@@ -82,8 +90,18 @@ class ChannelController < ApplicationController
       subtext.frame = [[PADDING.to_f/2, hot_button.titleLabel.frame.origin.y + hot_button.titleLabel.frame.size.height], [hot_button.frame.size.width-PADDING, 50]]
       hot_button.addSubview(subtext)
       row += (ndx%2) #only increment every other time
+
+      hot_button.when(UIControlEventTouchUpInside)do
+        topic_controller = saved_topics(topic[:id])
+        self.navigationController.pushViewController(topic_controller, animated:true)
+      end
       self.view.addSubview(hot_button)
     end
+  end
+
+  def saved_topics(id)
+    @saved_topics ||= {}
+    @saved_topics[id] ||= TopicController.alloc.initWithTopic(id)
   end
 
   def gradient
@@ -96,10 +114,10 @@ class ChannelController < ApplicationController
   def init_tab_bar(json)
     tab_bar = UITabBar.alloc.initWithFrame(CGRectZero)
     tab_bar.items = [
-      create_custom_tab_bar_item("Followers", text_to_image(json[:follower_count].to_s),21),
-      create_custom_tab_bar_item("Groups", text_to_image(json[:group_count].to_s),22),
-      create_custom_tab_bar_item("Topics", text_to_image(json[:topic_count].to_s),23),
-      create_custom_tab_bar_item("How-Tos", text_to_image(json[:how_to_count].to_s),24)
+      create_custom_tab_bar_item("Followers", text_to_image(json[:follower_count].to_s), FOLLOWERS_TAG),
+      create_custom_tab_bar_item("Groups", text_to_image(json[:group_count].to_s), GROUPS_TAG),
+      create_custom_tab_bar_item("Topics", text_to_image(json[:topic_count].to_s), TOPICS_TAG),
+      create_custom_tab_bar_item("How-Tos", text_to_image(json[:how_to_count].to_s), HOW_TOS_TAG)
     ]
 
     tab_bar.setTag(TAB_BAR_TAG)
@@ -110,9 +128,29 @@ class ChannelController < ApplicationController
     self.view.addSubview(tab_bar)
   end
 
+  def viewWillAppear(animated)
+    tab_bar = self.view.viewWithTag(TAB_BAR_TAG)
+    tab_bar.selectedItem = nil if tab_bar
+  end
+
+  def sub_pages(page, controller)
+    @sub_pages ||= {}
+    @sub_pages[page] ||= controller.alloc.initWithChannelId(@id)
+  end
+
   def tabBar(tabBar, didSelectItem:item)
-    puts item.title
-    puts item.tag
+
+    controller = nil
+    case item.tag
+    when FOLLOWERS_TAG
+
+    when GROUPS_TAG
+    when TOPICS_TAG
+      controller = sub_pages('topics', TopicIndexController)
+    when HOW_TOS_TAG
+    end
+    puts "controller is: #{controller}"
+      self.navigationController.pushViewController(controller, animated: true)
   end
 
   def create_custom_tab_bar_item(title, img, tag)

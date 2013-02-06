@@ -9,6 +9,7 @@ class ApplicationController < UIViewController
     self.setModalPresentationStyle(UIModalPresentationPageSheet)
     self.setModalTransitionStyle(UIModalTransitionStyleCoverVertical)
   end
+
   def viewDidLoad
     super
     self.view.backgroundColor = UIColor.whiteColor
@@ -18,15 +19,21 @@ class ApplicationController < UIViewController
   def profile_controller
     @profile_controller ||= ProfileController.alloc.init
   end
+
   def messages_controller
     @messages_controller ||= MessagesController.alloc.init
   end
+
   def login_controller
     @login_controller ||= create_login_controller
   end
 
   def channel_controller
     @channel_controller ||= ChannelController.alloc.init
+  end
+
+  def remove_crap(str)
+    str.gsub(/(\n|\t)+/, " ").gsub(/<\.+>/, " ")
   end
 
   private

@@ -3,6 +3,7 @@ $:.unshift("/Library/RubyMotion/lib")
 require 'rubygems'
 require 'motion/project'
 require "bundler"
+require 'cgi'
 Bundler.require
 
 Motion::Project::App.setup do |app|
@@ -10,4 +11,8 @@ Motion::Project::App.setup do |app|
   app.name = 'SW Community'
   app.icons << "icon.png"
   app.frameworks << "QuartzCore"
+
+  app.pods do
+    pod "NSString-HTML"
+  end
 end

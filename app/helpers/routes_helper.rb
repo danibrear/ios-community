@@ -9,12 +9,16 @@ module RoutesHelper
     community_domain + "/api/login.json"
   end
   def channel_url
-    community_domain + "/api/channels/index.json"
+    community_domain + "/api/channels"
   end
   def topic_path(id)
-    community_domain + "/api/topic/#{id}.json"
+    community_domain + "/api/topics/#{id}.json"
+  end
+
+  def channel_topics_path(channel_id)
+    community_domain + "/api/channels/#{channel_id}/topics"
   end
   def channel_show_path(id)
-    community_domain + "/api/channels/show.json?id=#{id}"
+    community_domain + "/api/channels/#{id}.json"
   end
 end
