@@ -1,8 +1,7 @@
 class LoginViewController < UIViewController
+  include RoutesHelper
   PADDING = 10
-  def login_path
-    @login_path ||= "http://community.davidbr-mbp.spiceworks.com/api/login.json"
-  end
+
   def loadView
     super
     self.setModalPresentationStyle(UIModalPresentationPageSheet)

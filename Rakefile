@@ -9,4 +9,5 @@ Motion::Project::App.setup do |app|
   # Use `rake config' to see complete project settings.
   app.name = 'SW Community'
   app.icons << "icon.png"
+  app.frameworks << "QuartzCore"
 end

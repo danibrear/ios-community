@@ -1,5 +1,6 @@
 class ApplicationController < UIViewController
   include ApplicationHelper
+  include RoutesHelper
 
   PADDING = 10
 
