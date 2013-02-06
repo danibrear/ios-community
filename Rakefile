@@ -3,7 +3,6 @@ $:.unshift("/Library/RubyMotion/lib")
 require 'rubygems'
 require 'motion/project'
 require "bundler"
-require 'cgi'
 Bundler.require
 
 Motion::Project::App.setup do |app|
