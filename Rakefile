@@ -11,7 +11,4 @@ Motion::Project::App.setup do |app|
   app.icons << "icon.png"
   app.frameworks << "QuartzCore"
 
-  app.pods do
-    pod "NSString-HTML"
-  end
 end

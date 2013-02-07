@@ -54,7 +54,7 @@ class MainViewController < ApplicationController
   def personal_squares
     @personal_squares = Array.new.tap do |a|
       a << {name:"Activity", image: "news.png", controller: nil} if current_user
-      a << {name:"Messages", image: "mail.png", controller: messages_controller} if current_user
+      a << {name:"Messages", image: "mail.png", controller: messages_index_controller} if current_user
       a << {name:"Profile",  image: "user.png", controller: profile_controller} if current_user
     end
   end

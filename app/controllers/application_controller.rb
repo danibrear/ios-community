@@ -4,10 +4,23 @@ class ApplicationController < UIViewController
 
   PADDING = 10
 
+  X_LARGE_FONT = 20
+  LARGE_FONT = 16
+  NORMAL_FONT = 14
+  SMALL_FONT = 12
+
   def loadView
     super
     self.setModalPresentationStyle(UIModalPresentationPageSheet)
     self.setModalTransitionStyle(UIModalTransitionStyleCoverVertical)
+  end
+
+  def current_user_headers
+    headers = {}
+    if current_user
+      headers = {"spiceworks-communty"=> current_user.session}
+    end
+    headers
   end
 
   def viewDidLoad
@@ -16,12 +29,22 @@ class ApplicationController < UIViewController
     self.navigationController.navigationBar.tintColor = "#fe5200".to_color;
   end
 
+  def format_date(string)
+    puts string
+    date_formatter = NSDateFormatter.alloc.init
+    date_formatter.setDateFormat("yyyy-MM-dd'T'HH:mm:ss'+00:00'")
+    date = date_formatter.dateFromString string
+    date_formatter.setDateFormat("MMM dd yy HH:mm")
+
+    date_formatter.stringFromDate(date)
+  end
+
   def profile_controller
     @profile_controller ||= ProfileController.alloc.init
   end
 
-  def messages_controller
-    @messages_controller ||= MessagesController.alloc.init
+  def messages_index_controller
+    @messages_index_controller ||= MessagesIndexController.alloc.init
   end
 
   def login_controller
@@ -33,7 +56,11 @@ class ApplicationController < UIViewController
   end
 
   def remove_crap(str)
-    str.gsub(/(\n|\t)+/, " ").gsub(/<\.+>/, " ")
+    str.gsub(/(\n|\t)/, " ")
+  end
+
+  def remove_html(str)
+    str.gsub(/<.+>/, "").gsub("&#39;", "'").gsub("&nbsp;", " ")
   end
 
   private
