@@ -22,17 +22,20 @@ class ChannelController < ApplicationController
     @id = id
     BubbleWrap::HTTP.get(channel_show_path(id)) do |response|
       if response.ok?
-        json = BubbleWrap::JSON.parse(response.body.to_str)
-        self.title = json[:name]
+        @data = BubbleWrap::JSON.parse(response.body.to_str)
+        self.title = @data[:name]
         label = self.view.viewWithTag(LOADING_TAG)
         label.removeFromSuperview if label
 
-        init_tab_bar(json)
+        init_tab_bar(@data)
 
-        init_windows(json)
+        init_windows(@data)
+
+        init_popular_topics
 
       else
-        puts "failed to get the json"
+        alert = UIAlertView.alloc.initWithTitle("Error Loading Channel",message:"There was an error loading the data for this channel", delegate:self, cancelButtonTitle:"That sucks", otherButtonTitles:nil)
+        alert.show
       end
     end
   end
@@ -49,6 +52,10 @@ class ChannelController < ApplicationController
     UIGraphicsEndImageContext()
 
     img
+  end
+
+  def init_popular_topics
+
   end
 
   def init_windows(json)

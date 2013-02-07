@@ -39,6 +39,12 @@ class TopicIndexController < ApplicationController
     cell
   end
 
+  def tableView(tableView, didSelectRowAtIndexPath: indexPath)
+    topic_id = @data[indexPath.row][:id]
+    topic_controller = TopicController.alloc.initWithTopic(topic_id)
+    self.navigationController.pushViewController(topic_controller, animated:true)
+  end
+
   def viewDidLoad
     super
     self.title = "Topics"

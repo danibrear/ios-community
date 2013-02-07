@@ -16,7 +16,7 @@ class MessageController < ApplicationController
 
         show_form
       else
-        alert = UIAlertView.alloc.initWithTitle("Error Loading Message", delegate:self, cancelButtonTitle:"That sucks", otherButtonTitles:nil)
+        alert = UIAlertView.alloc.initWithTitle("Error",message:"There was an error loading the data for this message", delegate:self, cancelButtonTitle:"That sucks", otherButtonTitles:nil)
         alert.show
       end
     end
