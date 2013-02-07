@@ -20,7 +20,7 @@ class MessagesIndexController < ApplicationController
         @messages = @data[:messages]
         fill_table
       else
-        alert = UIAlertView.alloc.initWithTitle("Failed to Load Messages", delegate:self, cancelButtonTitle:"That Sucks", otherButtonTitles:nil)
+        alert = UIAlertView.alloc.initWithTitle("Failed to Load Messages", message:"There was an error loading the messages", delegate:self, cancelButtonTitle:"That Sucks", otherButtonTitles:nil)
         alert.show
       end
     end

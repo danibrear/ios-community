@@ -1,7 +1,8 @@
 module RoutesHelper
 
   def community_domain
-    "http://community.davidbr-mbp.spiceworks.com"
+    #"http://community.davidbr-mbp.spiceworks.com"
+    "http://10.10.49.30"
   end
 
   #PATHS

@@ -12,7 +12,7 @@ class TopicIndexController < ApplicationController
         @data = BubbleWrap::JSON.parse(response.body.to_str)
         init_topics_tables
       else
-        alert = UIAlertView.alloc.initWithTitle("Error Loading Topics", delegate:self, cancelButtonTitle:"That sucks", otherButtonTitles:nil)
+        alert = UIAlertView.alloc.initWithTitle("Error Loading Topics", message:"There was an error loading the topics", delegate:self, cancelButtonTitle:"That sucks", otherButtonTitles:nil)
         alert.show
       end
     end
